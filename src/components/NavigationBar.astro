@@ -1,0 +1,29 @@
+---
+interface Props {
+  session: any;
+}
+
+const { session } = Astro.props;
+---
+
+<header class="navbar flex justify-between">
+  <a href="/">My New PR</a>
+  {
+    session?.user ? (
+      <div class="w-8 h-8 bg-amber-300 text-black rounded-full flex justify-center items-center">
+        <span>{session.user.name.charAt(0)}</span>
+      </div>
+    ) : (
+      <button id="login" class="btn">
+        Log in with Google
+      </button>
+    )
+  }
+  <!-- <button id="login" class="btn">Log in with Google</button> -->
+</header>
+
+<script>
+  import { signinUser } from '/src/lib/users/usecases/signinUser';
+  const login = document.querySelector('#login');
+  login?.addEventListener('click', signinUser);
+</script>
