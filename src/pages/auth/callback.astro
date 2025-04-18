@@ -1,0 +1,17 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { POST } from '@pages/api/users/register';
+import { getSession } from 'auth-astro/server';
+
+const res = await POST(Astro);
+
+if (!res.ok) {
+  const session = await getSession(Astro.request);
+  if (session) return Astro.redirect('/dashboard');
+  return Astro.redirect('/');
+}
+
+return Astro.redirect('/dashboard');
+---
+
+<Layout />
